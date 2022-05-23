@@ -9,13 +9,14 @@ class SB_type(Instruction_type):
     rs2 = ''
     track = False
 
-    def split_inst(self,ins):
-        ins = ins.replace(',', ' ')
+    def split_inst(self,inst):
+        x = inst.lower()
+        ins = x.replace(',', ' ')
+        print(ins,'\n\n\n\n\n\nxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
         self.ins_word = ins.split()
         return self.ins_word
-        
-    def op_select(self,x):
-        self.ins_word = self.split_inst(x)
+    def op_select(self):
+        #self.ins_word = self.split_inst(ins)
         self.rs1 = self.ins_word[1]
         self.op1 = int(self.rs1[1:])
         self.rs2 = self.ins_word[2]

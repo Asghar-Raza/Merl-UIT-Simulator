@@ -1,10 +1,9 @@
 from .instructions import Instruction_type
-
 import sys
 
 
 class JumpIns(Instruction_type):
-    def __init__(self, ins, next_pc, code_line, whole_code, label_address):
+    def _init_(self, ins, next_pc, code_line, whole_code, label_address):
         self.ins = ins
         self.next_pc = next_pc
         self.code_line = code_line
@@ -27,16 +26,22 @@ class JumpIns(Instruction_type):
         track = self.next_pc
         if len(self.ins_split) == 2:
             Instruction_type.val[1] = nxt * 4
+            print ("next", nxt)
+            print("instructon type", Instruction_type.val[1])
         else:
             ret_add = self.ins_split[1]  # register in which the return address will be saved
             ret_add = int(ret_add[1:])
+            print ("return addr", ret_add)
             Instruction_type.val[ret_add] = nxt * 4
+            print(Instruction_type.val[ret_add])
 
         jal_c = 0
-        print("label address")
-        print(self.label_address)
+        print("label address", self.label_address)
+        # print(self.label_address)
         for key in self.label_address:
+            print("key", key)
             if y in key:
+                print("this is y", y)
                 label_add = self.label_address[key]
         print("value of x1: " + str(nxt))
         print("track:", track)
@@ -47,7 +52,7 @@ class JumpIns(Instruction_type):
                     l_count += 1
                 track += 1
             jal_c = l_count
-        elif label_add < track:       #not working properly
+        elif label_add < track:       #not working properly    
             while track != label_add:
                 if ':' not in self.code_line[track]:
                     l_count -= 1

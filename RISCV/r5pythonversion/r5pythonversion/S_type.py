@@ -75,7 +75,7 @@ class S_type(Instruction_type):
         # self.memory_block[self.val[self.indexd]] = self.val[self.indexs1]
         # self.mydix[hex(self.val[self.indexd])]=(self.val[self.indexs1])
         # self.mydix[hex(self.val[self.indexd])]=int(self.val[self.indexs1])
-
+        
         self.mydix[hex(self.val[self.indexs1] + self.offset_val)] = int(self.val[self.indexd])
 
         ###When using Online web
@@ -89,6 +89,6 @@ class S_type(Instruction_type):
         print(self.val)
         print(self.mydix)
         print(self.mydix.get(hex(self.val[self.indexs1])))
-        print("##############################")
+        
         # print(self.memory_block[self.val[self.indexs1]])
         # print(self.val)

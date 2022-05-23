@@ -113,32 +113,33 @@ def unsigned(request):
     unsign_val = []
     for j in range(len(instructions.Instruction_type.val)):
         if instructions.Instruction_type.val[j] < 0:
-            unsign_val.append(instructions.Instruction_type.val[j] + 2 ** 32)
+            unsign_val.append(instructions.Instruction_type.val[j])
         else:
             unsign_val.append(instructions.Instruction_type.val[j])
     for j in range(len(views.Base.list_column_1)):
         if views.Base.list_column_1[j] < 0:
-            mem1_unsign.append(views.Base.list_column_1[j] + 2 ** 32)
+            mem1_unsign.append(views.Base.list_column_1[j])
         else:
             mem1_unsign.append(views.Base.list_column_1[j])
 
 
         if views.Base.list_column_2[j] < 0:
-            mem2_unsign.append(views.Base.list_column_2[j] + 2 ** 32)
+            mem2_unsign.append(views.Base.list_column_2[j])
         else:
             mem2_unsign.append(views.Base.list_column_2[j])
 
 
         if views.Base.list_column_3[j] < 0:
-            mem3_unsign.append(views.Base.list_column_3[j] + 2 ** 32)
+            mem3_unsign.append(views.Base.list_column_3[j])
         else:
             mem3_unsign.append(views.Base.list_column_3[j])
 
 
         if views.Base.list_column_4[j] < 0:
-            mem4_unsign.append(views.Base.list_column_4[j] + 2 ** 32)
+            mem4_unsign.append(views.Base.list_column_4[j])
         else:
             mem4_unsign.append(views.Base.list_column_4[j])
     un_dict = {'val3': unsign_val, 'list1': mem1_unsign, 'list2': mem2_unsign,
                'list3': mem3_unsign, 'list4': mem4_unsign}
     return HttpResponse(json.dumps(un_dict))
+

@@ -438,7 +438,7 @@ display: block;
                    <textarea id="editline" name="editor"  placeholder="Write Code...... ">{{ code }}</textarea><br>
               </div>
               <div class="row" style="margin-left: 2px">
-              <button type="button" ID="st" onclick="call();" style=" border-radius:0; color:#ffffff;  margin:0; font-weight: bold;" class="btn btn-primary" Font-Bold="True" Width="267px" Height="37px">Start Simulation</button>
+              <button type="button" ID="st" onclick="call();" style=" border-radius:0; color:#ffffff;  margin:0; font-weight: bold;" class="btn btn-primary" Font-Bold="True" Width="267px" Height="37px">Start Sssimulation</button>
                 </div>
           </div>
           </form>
@@ -485,7 +485,7 @@ display: block;
                             {% csrf_token %}
                         </form>
 
-                        <button type="button" id="run"  onclick="index();" class="btn btn-success">Run</button>
+                        <button type="button" id="run"  onclick="index();" class="btn btn-success">Runnn</button>
                         <button type="button" id="step" onclick="step();" class="btn btn-info">Step</button>
                         <button type="button" id="prev" onclick="prev();" class="btn btn-info">Prev</button>
                         <button type="button" id="reset" onclick="reset();" class="btn btn-primary" >Reset</button>
@@ -937,10 +937,12 @@ The main Purpose of making this simulator is to get familiar with RISC-V ISA(Ins
             $.ajax({
                 type:'POST',
                 url: '{% url 'displayI' %}',
-                data: { csrfmiddlewaretoken: '{{ csrf_token }}', editline: codeMirror.getValue()},
+                data: { csrfmiddlewaretoken: '{{ csrf_token }}', editline: codeMirror.getValue.lowercase()},
                 success: function(param123){
                     console.log("Yahoo!");
+                    console.log(param123,'this is param 123');
                     dict1 = JSON.parse(param123);
+                    console.log(dict1,"this is start simulation dict 1")
                     document.getElementById("TextArea1").value = '';
                     if("error" in dict1){
                         toastr.options = {
@@ -1400,7 +1402,7 @@ The main Purpose of making this simulator is to get familiar with RISC-V ISA(Ins
                         var count = 0;
                         var count1 = 0;
                         var count2 = 0;
-                        console.log(data)
+                        console.log('\n\n\n\n',data,'\n\n\n\n')
                         table = document.getElementById("x");
                         table1 = document.getElementById("z");
                         table2 = document.getElementById("y");
@@ -1520,6 +1522,7 @@ The main Purpose of making this simulator is to get familiar with RISC-V ISA(Ins
                 success: function(param123){
                     console.log("Yahoo!");
                     dict1 = JSON.parse(param123);
+                    console.log(dict1,'this is dict 1');
                     if("error" in dict1){
                         let Error = dict1.Error;
                         toastr.options = {
