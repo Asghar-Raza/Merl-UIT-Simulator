@@ -3,7 +3,7 @@ from .instructions import Instruction_type
 
 class I_type(Instruction_type):
     remi = False
-    subi = False
+    #subw = False
     addi = False
     divi = False
     muli = False
@@ -18,76 +18,95 @@ class I_type(Instruction_type):
     sltimmu = False  # Set less than immediate unsigned
 
     def getoperatori(self, x):
-        if "addi" in x:
+        #print(x,"*********************", "xori" in x)
+        temp = x.find(" ")
+        temp = x[:4]
+        #print(temp)
+        
+        if "addi" == temp:
             y = "addi"
             self.addi = True
             x = x[len(y) + 1:]
             return x
-        elif "subi" in x:
-            y = "subi"
-            self.subi = True
-            x = x[len(y) + 1:]
-            return x
-        elif "muli" in x:
+        
+        # elif "subw" == temp:
+        #     y = "subw"
+        #     self.subw = True
+        #     x = x[len(y) + 1:]
+        #     return x
+
+        elif "muli" == temp:
             y = "muli"
             self.muli = True
             x = x[len(y) + 1:]
             return x
-        elif "divi" in x:
+
+        elif "divi" == temp:
             y = "divi"
             self.divi = True
             x = x[len(y) + 1:]
             return x
-        elif "remi" in x:
+
+        elif "remi" == temp:
             y = "remi"
             self.remi = True
             x = x[len(y) + 1:]
             return x
-        elif "lw" in x:
+
+        elif "lw" == temp:
             y = "lw"
             self.load = True
             x = x[len(y) + 1:]
             return x
+
         elif "ori" in x:
             y = "ori"
             self.Ori = True
             x = x[len(y) + 1:]
             return x
-        elif "andi" in x:
+
+        elif "andi" == temp:
             y = "andi"
             self.Andi = True
             x = x[len(y) + 1:]
             return x
-        elif "xori" in x:
-            y = "xor"
+
+        elif "xori" == temp:
+            y = "xori"
             self.Xori = True
             x = x[len(y) + 1:]
             return x
-        elif "slli" in x:
+
+        elif "slli" == temp:
             y = "slli"
             self.llshifti = True
             x = x[len(y) + 1:]
             return x
-        elif "srli" in x:
+        
+        elif "srli" == temp:
             y = "srli"
             self.rlshifti = True
             x = x[len(y) + 1:]
             return x
-        elif "srai" in x:
+        
+        elif "srai" == temp:
             y = "srai"
             self.rashifti = True
             x = x[len(y) + 1:]
             return x
-        elif "sltiu" in x:
+        
+        elif "sltiu" == temp:
             y = "sltiu"
             self.sltimmu = True
             x = x[len(y) + 1:]
             return x
-        elif "slti" in x:
+        
+        elif "slti" == temp:
             y = "slti"
             self.sltimm = True
             x = x[len(y) + 1:]
             return x
+        
         else:
             return x
 
@@ -154,8 +173,8 @@ class I_type(Instruction_type):
 
         if self.addi:
             self.adderi()
-        elif self.subi:
-            self.subtractori()
+        # elif self.subw:
+        #     self.subtractori()
         elif self.muli:
             self.multii()
         elif self.divi:
@@ -191,12 +210,12 @@ class I_type(Instruction_type):
         self.val[self.indexd] = temp
         print(self.val)
 
-    def subtractori(self):
-        temp = self.val[self.indexs1]
-        temp1 = self.indexs2
-        temp = temp - temp1
-        self.val[self.indexd] = temp
-        print(self.val)
+    # def subtractori(self):
+    #     temp = self.val[self.indexs1]
+    #     temp1 = self.indexs2
+    #     temp = temp - temp1
+    #     self.val[self.indexd] = temp
+    #     print(self.val)
 
     def multii(self):
         temp = self.val[self.indexs1]

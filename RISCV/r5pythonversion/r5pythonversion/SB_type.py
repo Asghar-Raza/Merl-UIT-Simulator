@@ -9,8 +9,9 @@ class SB_type(Instruction_type):
     rs2 = ''
     track = False
 
-    def split_inst(self,ins):
-        ins = ins.replace(',', ' ')
+    def split_inst(self,inst):
+        x = inst.lower()
+        ins = x.replace(',', ' ')
         self.ins_word = ins.split()
         return self.ins_word
     def op_select(self):
@@ -56,4 +57,3 @@ class SB_type(Instruction_type):
         if self.val[self.op1] >= abs(self.val[self.op2]):
             return True
         return False
-

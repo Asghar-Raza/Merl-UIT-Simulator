@@ -380,7 +380,7 @@ def Display_info_I(request):
             views.Base.source1.append(src1_int)
             views.Base.source2.append(src2_int)
             views.Base.immediate1.append('0000000')
-            views.Base.immediate2.append('10000')
+            views.Base.immediate2.append('01000')
             views.Base.destination.append('X')
             views.Base.opcode.append('1100011')
             views.Base.func7.append('X')
@@ -466,12 +466,12 @@ def Display_info_I(request):
             views.Base.immediate1.append(imm_int)
             views.Base.j_count += 1
             # print("Value of JUMP : " + str(views.Base.jal_imm))
-            views.Base.func7.append('X')
-            views.Base.func3.append('X')
+            views.Base.func7.append('X')        
+            views.Base.func3.append('11000000')     #PREVIOUS FUNC3 WAS X
             views.Base.source1.append('X')
-            views.Base.source2.append('X')
-            views.Base.immediate2.append('X')
-            ins_mem.append('00000000000000000000000000000000')
+            views.Base.source2.append('0001110111')         #PREVIOUS SOURCE2 WAS X
+            views.Base.immediate2.append('X')          
+            ins_mem.append('00000000000011000000000011101111')    #PREVIOUS INS_MEM WAS 0
             # ins_mem.append(str(views.Base.immediate1[i]) + str(views.Base.destination[i]) + str(views.Base.opcode[i]))
         elif 'ret' in m or 'ebreak' in m:
             views.Base.ins_type.append('X')
@@ -1725,16 +1725,16 @@ def Display_info_IMC(request):
             views.Base.ins_type.append('X')
             views.Base.opcode.append('X')
             views.Base.func7.append('X')
-            views.Base.func3.append('X')
+            views.Base.func3.append('11000000')
             views.Base.func2.append('X')
             views.Base.func4.append('X')
             views.Base.func6.append('X')
             views.Base.source1.append('X')
-            views.Base.source2.append('X')
-            views.Base.destination.append('X')
+            views.Base.source2.append('0001110111')
+            views.Base.destination.append('1101111')
             views.Base.immediate2.append('X')
             views.Base.immediate1.append('X')
-            ins_mem.append('00000000000000000000000000000000')
+            ins_mem.append('00000000000011000000000011101111')
             # ins_mem.append(str(views.Base.immediate1[i]) + str(views.Base.destination[i]) + str(views.Base.opcode[i]))
 
         elif m in mr_ins:

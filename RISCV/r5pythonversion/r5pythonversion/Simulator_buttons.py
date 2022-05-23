@@ -765,6 +765,7 @@ def execute(whole_code):
                 y = x[4:]
                 track, jal_c = jump_type[count_jump].jal_op()
                 views.Base.jal_imm[y] = jal_c
+                print("track in sim_button", track)
                 print("jal_c", jal_c)
                 print("jal list", views.Base.jal_imm)
                 views.Base.vari = jal_c + views.Base.vari
@@ -1324,6 +1325,7 @@ def stepping(x):
             y = x[4:]
             track, jal_c = jump_type[count_jump].jal_op()
             views.Base.jal_imm[y] = jal_c
+            print("track in sim_button1", track)
             print("jal_c", jal_c)
             print("jal list", views.Base.jal_imm)
             views.Base.vari = jal_c + views.Base.vari
