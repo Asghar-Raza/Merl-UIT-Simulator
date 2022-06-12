@@ -47,7 +47,7 @@ def Display_info_I(request):
     views.Base.dump_bin = []
 
     request.session['session'] = 0
-    views.Base.whole_code = request.POST.get("editline", "")
+    views.Base.whole_code = request.POST.get("editline", "").lower()
     #views.Base.whole_code = "addi x1,x0,2\r\njal label\r\naddi x2,x0,4\r\nlabel1:\r\nslt x2,x1,x2\r\nadd x3,x2,x3\r\njal label1\r\nsub x3,x4,x5\r\nsw x2,5(x0)\r\nlabel:\r\nori x17,x14,4\r\nandi x16,x13,3\r\nxori x15,x12,2\r\nslli x14,x1,2\r\nsrli x13,x1,3\r\nsrai x12,x2,2\r\nlui x13,1\r\njalr x0,x5,20"
     #views.Base.whole_code = " addi a5,zero,17\nstart:\naddi a1,zero,1\nupx:\nadd a0,a2,zero\nup:\naddi a3,a3,1\nadd a2,a0,a1\nbeq a5,a3,end\nandi a4,a3,1\nbeq a4,zero,upx\nadd a1,a2,zero\njal up\nend:"
     print(views.Base.whole_code)
