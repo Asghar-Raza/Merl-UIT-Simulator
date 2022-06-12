@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.http import HttpResponse
+from os.path import dirname, join
 
 
 from . import instructions
@@ -532,7 +533,9 @@ def Display_info_I(request):
 
     ##### This Is Memory Block START
     ###When using Online web
-    file_values=open("/home/asghar/merloxygen/Merl-UIT-Simulator/RISCV/r5pythonversion/templates/m.txt","r")
+    cur_path = dirname(__file__)
+    m_path = join(cur_path, '../templates/m.txt')
+    file_values=open(m_path,"r")
     ###when using dedicated machine(PC)
 
     # file_values = open("templates\m.txt", "r")
