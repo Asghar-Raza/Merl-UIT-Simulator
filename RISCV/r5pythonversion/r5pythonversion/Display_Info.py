@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.http import HttpResponse
+from os.path import dirname, join
 
 
 from . import instructions
@@ -46,7 +47,7 @@ def Display_info_I(request):
     views.Base.dump_bin = []
 
     request.session['session'] = 0
-    views.Base.whole_code = request.POST.get("editline", "")
+    views.Base.whole_code = request.POST.get("editline", "").lower()
     #views.Base.whole_code = "addi x1,x0,2\r\njal label\r\naddi x2,x0,4\r\nlabel1:\r\nslt x2,x1,x2\r\nadd x3,x2,x3\r\njal label1\r\nsub x3,x4,x5\r\nsw x2,5(x0)\r\nlabel:\r\nori x17,x14,4\r\nandi x16,x13,3\r\nxori x15,x12,2\r\nslli x14,x1,2\r\nsrli x13,x1,3\r\nsrai x12,x2,2\r\nlui x13,1\r\njalr x0,x5,20"
     #views.Base.whole_code = " addi a5,zero,17\nstart:\naddi a1,zero,1\nupx:\nadd a0,a2,zero\nup:\naddi a3,a3,1\nadd a2,a0,a1\nbeq a5,a3,end\nandi a4,a3,1\nbeq a4,zero,upx\nadd a1,a2,zero\njal up\nend:"
     print(views.Base.whole_code)
@@ -371,16 +372,18 @@ def Display_info_I(request):
 
         elif m in sb_ins:
             views.Base.ins_type.append('SB')
+            print('\n\n\n\n\n',x,'\n\n\n\n\n')
             half_ins = re.findall(r'[+-]?\d+', x)
+            print('\n\n\n\n\n',half_ins,'\n\n\n\n\n')
             src1 = half_ins[0]
-            # imm = half_ins[2]
+            #imm = half_ins[2]
             src2 = half_ins[1]
             src1_int = '{0:05b}'.format(int(src1))
             src2_int = '{0:05b}'.format(int(src2))
             views.Base.source1.append(src1_int)
             views.Base.source2.append(src2_int)
             views.Base.immediate1.append('0000000')
-            views.Base.immediate2.append('01000')           # change from 10000 to 01000
+            views.Base.immediate2.append('10100') # 01000
             views.Base.destination.append('X')
             views.Base.opcode.append('1100011')
             views.Base.func7.append('X')
@@ -397,7 +400,7 @@ def Display_info_I(request):
             elif 'bge' in m:
                 views.Base.func3.append('101')
             #ins_mem.append('00000000000000000000000000000000')
-            ins_mem.append(str(views.Base.immediate1[i]) + str(views.Base.source2[i]) + str(views.Base.source1[i]) + str(views.Base.func3[i]) + str(views.Base.immediate2[i]) + str(views.Base.opcode[i]))
+            ins_mem.append(str(views.Base.immediate1[c]) + str(views.Base.source2[c]) + str(views.Base.source1[c]) + str(views.Base.func3[c]) + str(views.Base.immediate2[c]) + str(views.Base.opcode[c]))
 
 
         elif m in s_ins:
@@ -467,11 +470,11 @@ def Display_info_I(request):
             views.Base.j_count += 1
             # print("Value of JUMP : " + str(views.Base.jal_imm))
             views.Base.func7.append('X')        
-            views.Base.func3.append('11000000')     #PREVIOUS FUNC3 WAS X
+            views.Base.func3.append('11111111')     #PREVIOUS FUNC3 WAS X 11000000
             views.Base.source1.append('X')
-            views.Base.source2.append('0001110111')         #PREVIOUS SOURCE2 WAS X
+            views.Base.source2.append('0001110111')         #PREVIOUS SOURCE2 WAS X 0001110111
             views.Base.immediate2.append('X')          
-            ins_mem.append('00000000000011000000000011101111')    #PREVIOUS INS_MEM WAS 0
+            ins_mem.append('11111110110111111111000011101111')    #PREVIOUS INS_MEM WAS 0 00000000000011000000000011101111
             # ins_mem.append(str(views.Base.immediate1[i]) + str(views.Base.destination[i]) + str(views.Base.opcode[i]))
         elif 'ret' in m or 'ebreak' in m:
             views.Base.ins_type.append('X')
@@ -532,7 +535,9 @@ def Display_info_I(request):
 
     ##### This Is Memory Block START
     ###When using Online web
-    file_values=open("/home/hrq/merloxygen/Merl-UIT-Simulator/RISCV/r5pythonversion/templates/m.txt","r")
+    cur_path = dirname(__file__)
+    m_path = join(cur_path, '../templates/m.txt')
+    file_values=open(m_path,"r")
     ###when using dedicated machine(PC)
 
     # file_values = open("templates\m.txt", "r")
@@ -1618,7 +1623,7 @@ def Display_info_IMC(request):
             views.Base.source1.append(src1_int)
             views.Base.source2.append(src2_int)
             views.Base.immediate1.append('0000000')
-            views.Base.immediate2.append('01000')   # change from 10100 to 01000
+            views.Base.immediate2.append('10100')
             views.Base.destination.append('X')
             views.Base.opcode.append('1100011')
             views.Base.func7.append('X')
@@ -1725,16 +1730,16 @@ def Display_info_IMC(request):
             views.Base.ins_type.append('X')
             views.Base.opcode.append('X')
             views.Base.func7.append('X')
-            views.Base.func3.append('X')
+            views.Base.func3.append('11000000')
             views.Base.func2.append('X')
             views.Base.func4.append('X')
             views.Base.func6.append('X')
             views.Base.source1.append('X')
-            views.Base.source2.append('X')
-            views.Base.destination.append('X')
+            views.Base.source2.append('0001110111')
+            views.Base.destination.append('1101111')
             views.Base.immediate2.append('X')
             views.Base.immediate1.append('X')
-            ins_mem.append('00000000000000000000000000000000')
+            ins_mem.append('00000000000011000000000011101111')
             # ins_mem.append(str(views.Base.immediate1[i]) + str(views.Base.destination[i]) + str(views.Base.opcode[i]))
 
         elif m in mr_ins:
@@ -2533,7 +2538,6 @@ def Display_info_IMC(request):
     views.Base.memory_list4.clear()
     views.Base.ins_number.clear()
     return HttpResponse(json.dumps(param123))
-
 
 
 
