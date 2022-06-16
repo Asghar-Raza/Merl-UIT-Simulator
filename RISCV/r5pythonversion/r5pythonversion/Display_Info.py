@@ -470,11 +470,11 @@ def Display_info_I(request):
             views.Base.j_count += 1
             # print("Value of JUMP : " + str(views.Base.jal_imm))
             views.Base.func7.append('X')        
-            views.Base.func3.append('11111111')     #PREVIOUS FUNC3 WAS X 11000000
+            views.Base.func3.append('11000000')     #PREVIOUS FUNC3 WAS X 
             views.Base.source1.append('X')
-            views.Base.source2.append('0001110111')         #PREVIOUS SOURCE2 WAS X 0001110111
+            views.Base.source2.append('0001110111')         #PREVIOUS SOURCE2 WAS X 
             views.Base.immediate2.append('X')          
-            ins_mem.append('11111110110111111111000011101111')    #PREVIOUS INS_MEM WAS 0 00000000000011000000000011101111
+            ins_mem.append('00000000000011000000000011101111')    #PREVIOUS INS_MEM WAS 0
             # ins_mem.append(str(views.Base.immediate1[i]) + str(views.Base.destination[i]) + str(views.Base.opcode[i]))
         elif 'ret' in m or 'ebreak' in m:
             views.Base.ins_type.append('X')
@@ -1639,7 +1639,8 @@ def Display_info_IMC(request):
                 views.Base.func3.append('111')
             elif 'bge' in m:
                 views.Base.func3.append('101')
-            ins_mem.append('00000000000000000000000000000000')
+            #ins_mem.append('00000000000000000000000000000000')
+            ins_mem.append(str(views.Base.immediate1[c]) + str(views.Base.source2[c]) + str(views.Base.source1[c]) + str(views.Base.func3[c]) + str(views.Base.immediate2[c]) + str(views.Base.opcode[c]))
             # ins_mem.append(str(views.Base.immediate1[i]) + str(views.Base.source2[i]) + str(views.Base.source1[i]) + str(views.Base.func3[i]) + str(views.Base.immediate2[i]) + str(views.Base.opcode[i]))
 
         elif m in s_ins:
