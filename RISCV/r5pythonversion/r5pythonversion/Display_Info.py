@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.http import HttpResponse
+from os.path import dirname, join
 
 
 from . import instructions
@@ -371,16 +372,18 @@ def Display_info_I(request):
 
         elif m in sb_ins:
             views.Base.ins_type.append('SB')
+            print('\n\n\n\n\n',x,'\n\n\n\n\n')
             half_ins = re.findall(r'[+-]?\d+', x)
+            print('\n\n\n\n\n',half_ins,'\n\n\n\n\n')
             src1 = half_ins[0]
-            # imm = half_ins[2]
+            #imm = half_ins[2]
             src2 = half_ins[1]
             src1_int = '{0:05b}'.format(int(src1))
             src2_int = '{0:05b}'.format(int(src2))
             views.Base.source1.append(src1_int)
             views.Base.source2.append(src2_int)
             views.Base.immediate1.append('0000000')
-            views.Base.immediate2.append('01000')
+            views.Base.immediate2.append('10100') # 01000
             views.Base.destination.append('X')
             views.Base.opcode.append('1100011')
             views.Base.func7.append('X')
@@ -397,7 +400,7 @@ def Display_info_I(request):
             elif 'bge' in m:
                 views.Base.func3.append('101')
             #ins_mem.append('00000000000000000000000000000000')
-            ins_mem.append(str(views.Base.immediate1[i]) + str(views.Base.source2[i]) + str(views.Base.source1[i]) + str(views.Base.func3[i]) + str(views.Base.immediate2[i]) + str(views.Base.opcode[i]))
+            ins_mem.append(str(views.Base.immediate1[c]) + str(views.Base.source2[c]) + str(views.Base.source1[c]) + str(views.Base.func3[c]) + str(views.Base.immediate2[c]) + str(views.Base.opcode[c]))
 
 
         elif m in s_ins:
@@ -467,9 +470,9 @@ def Display_info_I(request):
             views.Base.j_count += 1
             # print("Value of JUMP : " + str(views.Base.jal_imm))
             views.Base.func7.append('X')        
-            views.Base.func3.append('11000000')     #PREVIOUS FUNC3 WAS X
+            views.Base.func3.append('11000000')     #PREVIOUS FUNC3 WAS X 
             views.Base.source1.append('X')
-            views.Base.source2.append('0001110111')         #PREVIOUS SOURCE2 WAS X
+            views.Base.source2.append('0001110111')         #PREVIOUS SOURCE2 WAS X 
             views.Base.immediate2.append('X')          
             ins_mem.append('00000000000011000000000011101111')    #PREVIOUS INS_MEM WAS 0
             # ins_mem.append(str(views.Base.immediate1[i]) + str(views.Base.destination[i]) + str(views.Base.opcode[i]))
@@ -532,7 +535,9 @@ def Display_info_I(request):
 
     ##### This Is Memory Block START
     ###When using Online web
-    file_values=open("/home/asghar/merloxygen/Merl-UIT-Simulator/RISCV/r5pythonversion/templates/m.txt","r")
+    cur_path = dirname(__file__)
+    m_path = join(cur_path, '../templates/m.txt')
+    file_values=open(m_path,"r")
     ###when using dedicated machine(PC)
 
     # file_values = open("templates\m.txt", "r")
@@ -1634,7 +1639,8 @@ def Display_info_IMC(request):
                 views.Base.func3.append('111')
             elif 'bge' in m:
                 views.Base.func3.append('101')
-            ins_mem.append('00000000000000000000000000000000')
+            #ins_mem.append('00000000000000000000000000000000')
+            ins_mem.append(str(views.Base.immediate1[c]) + str(views.Base.source2[c]) + str(views.Base.source1[c]) + str(views.Base.func3[c]) + str(views.Base.immediate2[c]) + str(views.Base.opcode[c]))
             # ins_mem.append(str(views.Base.immediate1[i]) + str(views.Base.source2[i]) + str(views.Base.source1[i]) + str(views.Base.func3[i]) + str(views.Base.immediate2[i]) + str(views.Base.opcode[i]))
 
         elif m in s_ins:
@@ -2533,7 +2539,5 @@ def Display_info_IMC(request):
     views.Base.memory_list4.clear()
     views.Base.ins_number.clear()
     return HttpResponse(json.dumps(param123))
-
-
 
 
