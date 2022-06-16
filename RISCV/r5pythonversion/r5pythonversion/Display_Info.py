@@ -1170,8 +1170,11 @@ def Display_info_IM(request):
     # print(views.Base.ins_type)
 
     ##### This Is Memory Block START
-    ###When using Online web
-    file_values=open("/home/merloxygen/Merl-UIT-Simulator/RISCV/r5pythonversion/templates/m.txt","r")
+    ###When usingOnline web
+    cur_path = dirname(__file__)
+    m_path = join(cur_path, '../templates/m.txt')
+    file_values=open(m_path,"r")
+    # file_values=open("/home/merloxygen/Merl-UIT-Simulator/RISCV/r5pythonversion/templates/m.txt","r")
     ###when using dedicated machine(PC)
 
     # file_values = open("templates\m.txt", "r")
